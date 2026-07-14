@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function echoCommand(cmd){
-    append(`<span class="t-echoed"><span class="t-prompt">ishan@research:~$</span> <span class="t-cmdtext">${esc(cmd)}</span></span>`);
+    append(`<span class="t-echoed"><span class="t-prompt">ishan@info:~$</span> <span class="t-cmdtext">${esc(cmd)}</span></span>`);
   }
 
   function pubLinksLine(p){
