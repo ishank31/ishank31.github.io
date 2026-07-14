@@ -1,0 +1,146 @@
+/* =========================================================
+   Terminal feature — scoped so it never touches Bootstrap or
+   style_dm.css. Everything here lives under .terminal-callout,
+   .terminal-fab, or .term-overlay. Colors are hardcoded to match
+   the terminal's own dark palette, independent of the site's
+   light/dark mode toggle.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --tm-bg:#12171a;
+  --tm-panel:#181f23;
+  --tm-term:#0e1315;
+  --tm-line:#2a343a;
+  --tm-text:#d6dee0;
+  --tm-muted:#7c8a90;
+  --tm-pass:#4fd1a5;
+  --tm-amber:#e2a640;
+  --tm-flag:#e2574c;
+  --tm-mono:'IBM Plex Mono', monospace;
+}
+
+/* ---- "want something specific?" callout on the home page ---- */
+.terminal-callout{
+  margin-top:26px;
+  padding:16px 18px;
+  border:1px dashed var(--tm-line);
+  border-radius:6px;
+  background:var(--tm-panel);
+  font-family:var(--tm-mono);
+  font-size:13.5px;
+  color:var(--tm-muted);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.terminal-callout .tc-msg{flex:1; min-width:220px;}
+.terminal-callout .tc-msg strong{color:var(--tm-text);}
+.terminal-open-btn{
+  font-family:var(--tm-mono);
+  font-size:13px;
+  color:var(--tm-pass);
+  background:transparent;
+  border:1px solid var(--tm-pass);
+  padding:8px 14px;
+  border-radius:5px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.terminal-open-btn:hover{background:rgba(79,209,165,.1);}
+
+/* ---- floating relaunch button ---- */
+.terminal-fab{
+  position:fixed; right:20px; bottom:20px; z-index:1040;
+  font-family:var(--tm-mono); font-size:12.5px;
+  color:var(--tm-bg); background:var(--tm-pass);
+  border:none; padding:10px 16px; border-radius:24px; cursor:pointer;
+  box-shadow:0 10px 24px -8px rgba(79,209,165,.5);
+  display:none; align-items:center; gap:8px;
+}
+.terminal-fab.show{display:inline-flex;}
+
+/* ---- overlay ---- */
+.term-overlay{
+  --t-bg:#0e1315; --t-term:#12181b; --t-line:#2a343a; --t-text:#d6dee0;
+  --t-muted:#7c8a90; --t-pass:#4fd1a5; --t-amber:#e2a640; --t-flag:#e2574c;
+
+  position:fixed; inset:0; z-index:1050; background:rgba(6,9,10,.72);
+  display:none; align-items:center; justify-content:center; padding:24px;
+  font-family:var(--tm-mono);
+}
+.term-overlay.open{display:flex;}
+body.term-open{overflow:hidden;}
+
+.term-overlay .crt{
+  width:100%; max-width:880px; height:min(86vh, 780px);
+  background:var(--t-term); border:1px solid var(--t-line); border-radius:8px;
+  display:flex; flex-direction:column; overflow:hidden;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
+}
+.term-overlay .term-topbar{
+  display:flex; align-items:center; gap:10px; padding:10px 14px;
+  border-bottom:1px solid var(--t-line); background:#161d20; flex-shrink:0;
+}
+.term-overlay .term-dots{display:flex; gap:6px;}
+.term-overlay .term-dots span{width:10px; height:10px; border-radius:50%; display:inline-block;}
+.term-overlay .term-dots span:nth-child(1){background:#e2574c;}
+.term-overlay .term-dots span:nth-child(2){background:#e2a640;}
+.term-overlay .term-dots span:nth-child(3){background:#4fd1a5;}
+.term-overlay .term-titletxt{color:var(--t-muted); font-size:12.5px; margin-left:2px;}
+.term-overlay .term-clock{margin-left:auto; color:var(--t-muted); font-size:12px;}
+.term-overlay .term-closebtn{
+  color:var(--t-muted); background:transparent; border:1px solid var(--t-line);
+  border-radius:4px; padding:3px 9px; font-family:var(--tm-mono); font-size:12px; cursor:pointer; margin-left:12px;
+}
+.term-overlay .term-closebtn:hover{color:var(--t-flag); border-color:var(--t-flag);}
+
+.term-overlay .term-body{
+  flex:1; overflow-y:auto; padding:16px 18px; color:var(--t-text); font-size:14.5px; line-height:1.65;
+}
+.term-overlay .term-body::-webkit-scrollbar{width:8px;}
+.term-overlay .term-body::-webkit-scrollbar-thumb{background:var(--t-line); border-radius:4px;}
+
+.term-overlay .t-block{margin:6px 0 16px;}
+.term-overlay .t-echoed{color:var(--t-muted);}
+.term-overlay .t-echoed .t-prompt{color:var(--t-pass);}
+.term-overlay .t-echoed .t-cmdtext{color:var(--t-text);}
+.term-overlay .t-dim{color:var(--t-muted);}
+.term-overlay .t-head{color:#fff; font-weight:600;}
+.term-overlay .t-amber{color:var(--t-amber);}
+.term-overlay .t-flag{color:var(--t-flag);}
+.term-overlay .t-pass{color:var(--t-pass);}
+.term-overlay a{color:var(--t-pass); border-bottom:1px solid rgba(79,209,165,.4); text-decoration:none;}
+.term-overlay a:hover{border-color:var(--t-pass);}
+
+.term-overlay .t-chips{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 18px;}
+.term-overlay .t-chip{
+  font-size:12px; color:var(--t-text);
+  border:1px solid var(--t-line); background:#161d20; padding:5px 10px; border-radius:4px; cursor:pointer;
+}
+.term-overlay .t-chip:hover{border-color:var(--t-pass); color:var(--t-pass);}
+
+.term-overlay table.t-help{border-collapse:collapse; margin:6px 0;}
+.term-overlay table.t-help td{padding:2px 14px 2px 0; vertical-align:top;}
+.term-overlay table.t-help td.t-cmdname{color:var(--t-pass); white-space:nowrap;}
+.term-overlay .t-pub-item{margin:4px 0;}
+.term-overlay .t-pub-item .t-id{color:var(--t-pass);}
+
+.term-overlay .term-inputrow{
+  display:flex; align-items:center; gap:8px; padding:10px 18px;
+  border-top:1px solid var(--t-line); flex-shrink:0; background:var(--t-term);
+}
+.term-overlay .term-inputrow .t-prompt{color:var(--t-pass); flex-shrink:0;}
+.term-overlay .term-inputrow input{
+  flex:1; background:transparent; border:none; outline:none;
+  color:var(--t-text); font-family:var(--tm-mono); font-size:14.5px; caret-color:var(--t-pass);
+}
+.term-overlay .term-inputrow input::placeholder{color:var(--t-muted);}
+
+@media (max-width:640px){
+  .term-overlay{padding:0;}
+  .term-overlay .crt{max-width:100%; height:100vh; border-radius:0; border:none;}
+  .term-overlay .term-clock{display:none;}
+}
